@@ -1,18 +1,4 @@
-#!/usr/bin/env python3
-
-import pandas as pd
-from typing import List
-
-
-def average_of_each_row(csv_file: str, numeric_columns: List[str], output_file: str):
-    df = pd.read_csv(csv_file, usecols=numeric_columns)
-    with open(output_file, "w") as f:
-        for index, row in df.iterrows():
-            row = row.dropna()  # Drop any NaN values
-            if not row.empty:
-                average = row.mean()
-                f.write("Average of row {} : {}\n".format(row.values, average))
-
+from app import woodville_test
 
 def parse_args():
     import argparse
@@ -20,17 +6,19 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Calculate the average of each row in a CSV file"
     )
-    parser.add_argument("csv_file", help="The CSV file to read")
-    parser.add_argument(
-        "output_file", help="The file to write the average of each row to"
-    )
+    parser.add_argument("DEM", help="The CSV file to read")
+    parser.add_argument("catchments", help="The file to write the average of each row to")
+    parser.add_argument("flowlines", help="The file to write the average of each row to")
+    parser.add_argument("streamflow", help="")
     return parser.parse_args()
 
 
-args = parse_args()
-csv_file = args.csv_file
-output_file = args.output_file
+if __name__ == "__main__":
 
-# Specify the columns that contain numeric data
-numeric_columns = ["total_bill", "tip", "size"]
-average_of_each_row(csv_file, numeric_columns, output_file)
+    args = parse_args()
+    dem = args.DEM
+    flowlines = args.flowlines
+    catchments = args.catchments
+    streamflow = args.streamflow
+
+    woodville_test.pygeoflood_woodville(dem, flowlines, catchments, streamflow)

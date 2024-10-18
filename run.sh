@@ -1,11 +1,10 @@
 #!/bin/bash
 set -xe
 
-Catchment = $1
-DEM = $2
-Streamflow = $3
+DEM = $1
+Streamflow = $2
 
-python main.py {Catchment}/{DEM}.tif {Catchment}/Catchment.shp {Catchment}/Flowlines.shp {Catchment}/{Streamflow}_Streamflow.csv
+python main.py ${_tapisExecSystemInputDir}/{DEM}.tif ${_tapisExecSystemInputDir}/Catchment.shp ${_tapisExecSystemInputDir}/Flowlines.shp ${_tapisExecSystemInputDir}/{Streamflow}_Streamflow.csv
 
 
 cp /usr/src/app/{Catchment}/{DEM}_src.csv $_tapisExecSystemOutputDir/{DEM}_src.csv

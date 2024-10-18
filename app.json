@@ -1,13 +1,13 @@
 {
   "id": "pygeoflood-container",
-  "version": "0.0.4",
+  "version": "0.0.1",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",
   "enabled": true,
   "runtime": "SINGULARITY",
   "runtimeVersion": null,
   "runtimeOptions": ["SINGULARITY_RUN"],
-  "containerImage": "docker://ghcr.io/tobiashi26/pygeoflood-container:sha-1cfc1d1",
+  "containerImage": "docker://ghcr.io/tobiashi26/pygeoflood-container:main",
   "jobType": "BATCH",
   "maxJobs": -1,
   "maxJobsPerUser": -1,
@@ -29,12 +29,6 @@
     "cmdPrefix": "mkdir $PWD/work $PWD/home $PWD/scratch;",
     "parameterSet": {
       "appArgs": [
-        {
-          "name": "Catchment",
-          "description": "The name of the catchment where you are running pygeoflood. This should also be the name of the directory with your data",
-          "inputMode": "REQUIRED",
-          "arg": "Cathment"
-        },
         {
           "name": "DEM",
           "description": "The name of the DEM being used (example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded)",

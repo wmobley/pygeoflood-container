@@ -1,7 +1,7 @@
 from pathlib import Path
 from pygeoflood import PyGeoFlood
 
-def pygeoflood_woodville(dem, flowlines, catchments, streamflow):
+def pygeoflood_full_workflow(dem, flowlines, catchments, streamflow):
 
     pgf = PyGeoFlood(dem_path = dem)
 

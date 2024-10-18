@@ -1,4 +1,4 @@
-from app import woodville_test
+from app import pygeoflood_full_workflow
 
 def parse_args():
     import argparse
@@ -12,7 +12,6 @@ def parse_args():
     parser.add_argument("streamflow", help="")
     return parser.parse_args()
 
-
 if __name__ == "__main__":
 
     args = parse_args()
@@ -21,4 +20,4 @@ if __name__ == "__main__":
     catchments = args.catchments
     streamflow = args.streamflow
 
-    woodville_test.pygeoflood_woodville(dem, flowlines, catchments, streamflow)
+    pygeoflood_full_workflow.pygeoflood_woodville(dem, flowlines, catchments, streamflow)

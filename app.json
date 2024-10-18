@@ -1,5 +1,5 @@
 {
-  "id": "no-interactive-conda-example",
+  "id": "pygeoflood-container",
   "version": "0.0.4",
   "description": "Run an non-interactive script on TACC using docker.",
   "owner": "${apiUserId}",

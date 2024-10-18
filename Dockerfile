@@ -17,7 +17,7 @@ COPY . .
 RUN conda create --name pygeoflood-env python=3.11
 
 # Activate the environment and install pygeoflood
-RUN /bin/bash -c "source activate pygeoflood-env && pip install -e ./pygeoflood && pip list"
+RUN /bin/bash -c "source activate pygeoflood-env && pip install git+https://github.com/tobiashi26/pygeoflood.git && pip list"
 
 # Ensure the `run.sh` script is executable (if it exists)
 RUN chmod +x ./run.sh

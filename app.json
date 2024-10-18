@@ -7,7 +7,7 @@
   "runtime": "SINGULARITY",
   "runtimeVersion": null,
   "runtimeOptions": ["SINGULARITY_RUN"],
-  "containerImage": "docker://ghcr.io/in-for-disaster-analytics/cookbook-conda-template:0.0.2",
+  "containerImage": "docker://ghcr.io/tobiashi26/pygeoflood-container:sha-1cfc1d1",
   "jobType": "BATCH",
   "maxJobs": -1,
   "maxJobsPerUser": -1,
@@ -28,7 +28,26 @@
     "mpiCmd": null,
     "cmdPrefix": "mkdir $PWD/work $PWD/home $PWD/scratch;",
     "parameterSet": {
-      "appArgs": [],
+      "appArgs": [
+        {
+          "name": "Catchment",
+          "description": "The name of the catchment where you are running pygeoflood. This should also be the name of the directory with your data",
+          "inputMode": "REQUIRED",
+          "arg": "Cathment"
+        },
+        {
+          "name": "DEM",
+          "description": "The name of the DEM being used (example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded)",
+          "inputMode": "REQUIRED",
+          "arg": "DEM"
+        },
+        {
+          "name": "Streamflow",
+          "description": ".csv file containing streamflow values you want to use (example names could be Event1, Event2, Harvey, etc.)",
+          "inputMode": "REQUIRED",
+          "arg": "Streamflow"
+        }
+      ],
       "schedulerOptions": [
         {
           "name": "TACC Scheduler Profile",

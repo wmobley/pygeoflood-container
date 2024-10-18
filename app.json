@@ -1,5 +1,5 @@
 {
-  "id": "pygeoflood-container",
+  "id": "Pygeoflood-Container",
   "version": "0.0.1",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",

@@ -69,16 +69,7 @@
         "includeLaunchFiles": true
       }
     },
-    "fileInputs": [
-      {
-        "name": "Dataset File",
-        "description": "Contains the billing data to be processed",
-        "inputMode": "REQUIRED",
-        "autoMountLocal": true,
-        "sourceUrl": null,
-        "targetPath": "billing.csv"
-      }
-    ],
+    "fileInputs": [],
     "fileInputArrays": [],
     "nodeCount": 1,
     "coresPerNode": 1,

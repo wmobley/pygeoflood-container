@@ -7,7 +7,7 @@
   "runtime": "SINGULARITY",
   "runtimeVersion": null,
   "runtimeOptions": ["SINGULARITY_RUN"],
-  "containerImage": "docker://ghcr.io/tobiashi26/pygeoflood-container:sha-1cfc1d1",
+  "containerImage": "docker://ghcr.io/tobiashi26/pygeoflood-container:main",
   "jobType": "BATCH",
   "maxJobs": -1,
   "maxJobsPerUser": -1,

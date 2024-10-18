@@ -7,7 +7,7 @@
   "runtime": "SINGULARITY",
   "runtimeVersion": null,
   "runtimeOptions": ["SINGULARITY_RUN"],
-  "containerImage": "docker://ghcr.io/in-for-disaster-analytics/cookbook-conda-template:0.0.2",
+  "containerImage": "docker://ghcr.io/tobiashi26/pygeoflood-container:sha-1cfc1d1",
   "jobType": "BATCH",
   "maxJobs": -1,
   "maxJobsPerUser": -1,

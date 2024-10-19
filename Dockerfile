@@ -20,4 +20,4 @@ RUN conda create --name pygeoflood-env python=3.11 --yes && \
 RUN chmod +x /tapis/run.sh
 
 # Set the entry point for the container with Conda environment activation
-ENTRYPOINT ["/bin/bash", "-c", "source activate pygeoflood-env && /tapis/run.sh"]
+ENTRYPOINT ["/bin/bash", "-c", "source activate pygeoflood-env && exec /tapis/run.sh"]

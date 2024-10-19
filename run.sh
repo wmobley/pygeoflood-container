@@ -4,6 +4,10 @@ set -xe
 DEM=$1
 Streamflow=$2
 
+# Print the parameters for debugging
+echo "DEM: ${DEM}"
+echo "Streamflow: ${Streamflow}"
+
 python /code/main.py Catchment/${DEM}.tif Catchment/Catchment.shp Catchment/Flowlines.shp Catchment/${Streamflow}_Streamflow.csv
 
 cp Catchment/{DEM}_src.csv $_tapisExecSystemOutputDir/${DEM}_src.csv

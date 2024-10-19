@@ -10,15 +10,17 @@ RUN apt-get update && \
 # Copy your application files
 COPY --chmod=755 run.sh /tapis/run.sh
 COPY main.py /code/main.py
-COPY start.sh /tapis/start.sh
 
 # Create the conda environment with the necessary dependencies and install pygeoflood
 RUN conda create --name pygeoflood-env python=3.11 --yes && \
     conda run -n pygeoflood-env pip install git+https://github.com/tobiashi26/pygeoflood.git && \
     conda clean --all --yes  # Clean up unnecessary files to reduce image size
 
+# Set environment variables for Conda to avoid using 'source activate'
+ENV PATH /opt/conda/envs/pygeoflood-env/bin:$PATH
+
 # Ensure your scripts are executable
-RUN chmod +x /tapis/run.sh /tapis/start.sh
+RUN chmod +x /tapis/run.sh
 
 # Set the entry point for the container
-ENTRYPOINT ["/tapis/start.sh"]
+ENTRYPOINT ["/tapis/run.sh"]

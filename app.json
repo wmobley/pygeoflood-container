@@ -1,6 +1,6 @@
 {
   "id": "Pygeoflood-Container",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",
   "enabled": true,
@@ -69,7 +69,16 @@
         "includeLaunchFiles": true
       }
     },
-    "fileInputs": [],
+    "fileInputs": [
+      {
+        "name": "Catchment Folder",
+        "description": "Contains the billing data to be processed",
+        "inputMode": "REQUIRED",
+        "autoMountLocal": true,
+        "sourceUrl": null,
+        "targetPath": "Catchment"
+      }
+    ],
     "fileInputArrays": [],
     "nodeCount": 1,
     "coresPerNode": 1,

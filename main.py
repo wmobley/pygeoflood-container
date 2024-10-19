@@ -65,4 +65,4 @@ flowlines = args.flowlines
 catchments = args.catchments
 streamflow = args.streamflow
 
-pygeoflood_full_workflow.pygeoflood_woodville(dem, flowlines, catchments, streamflow)
+pygeoflood_full_workflow(dem, flowlines, catchments, streamflow)

@@ -61,6 +61,8 @@ def parse_args():
 
 args = parse_args()
 dem = args.DEM
+print(dem)
+
 flowlines = args.flowlines
 catchments = args.catchments
 streamflow = args.streamflow

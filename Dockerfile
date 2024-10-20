@@ -7,6 +7,9 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Switch to root user to avoid issues with whiteboxtools
+USER root
+
 # Copy your application files
 COPY --chmod=755 run.sh /tapis/run.sh
 COPY main.py /code/main.py

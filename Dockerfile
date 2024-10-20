@@ -16,6 +16,9 @@ RUN conda create --name pygeoflood-env python=3.11 --yes && \
     conda run -n pygeoflood-env pip install git+https://github.com/tobiashi26/pygeoflood.git && \
     conda clean --all --yes  # Clean up unnecessary files to reduce image size
 
+# Set WBT_DIR to a writable directory in /tmp
+ENV WBT_DIR=/tmp/whitebox
+
 # Set environment variables for Conda to avoid using 'source activate'
 ENV PATH /opt/conda/envs/pygeoflood-env/bin:$PATH
 

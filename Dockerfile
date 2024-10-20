@@ -18,6 +18,7 @@ RUN conda create --name pygeoflood-env python=3.11 --yes && \
 
 # Set WBT_DIR to a writable directory in /tmp
 ENV WBT_DIR=/tmp/whitebox
+RUN mkdir -p /tmp/whitebox
 
 # Set environment variables for Conda to avoid using 'source activate'
 ENV PATH /opt/conda/envs/pygeoflood-env/bin:$PATH

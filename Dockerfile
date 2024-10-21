@@ -10,9 +10,6 @@ RUN apt-get update && \
 # Switch to root user to avoid issues with whiteboxtools
 USER root
 
-# Switch to root user to avoid issues with whiteboxtools
-USER root
-
 # Create a directory for WhiteboxTools
 RUN mkdir -p /opt/whitebox_tools
 

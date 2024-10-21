@@ -34,6 +34,7 @@ RUN conda create --name pygeoflood-env python=3.11 --yes && \
 # Set environment variables for Conda to avoid using 'source activate'
 ENV PATH /opt/conda/envs/pygeoflood-env/bin:$PATH
 
+# Setting WBT_PATH
 ENV WBT_PATH="/opt/whitebox_tools/WhiteboxTools"
 
 # Set the entry point for the container

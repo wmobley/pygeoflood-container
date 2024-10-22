@@ -1,6 +1,6 @@
 {
   "id": "Pygeoflood-Container",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",
   "enabled": true,
@@ -40,6 +40,19 @@
           "description": ".csv file containing streamflow values you want to use (example names could be Event1, Event2, Harvey, etc.)",
           "inputMode": "REQUIRED",
           "arg": "Test"
+        },
+        {
+          "name": "choice test",
+          "description": "test",
+          "inputMode": "REQUIRED",
+          "arg": "Choice Test",
+          "options": [
+            "Original",
+            "Dike1",
+            "Reservoir_expansion",
+            "Floodplain",
+            "Wetland"
+          ]
         }
       ],
       "schedulerOptions": [

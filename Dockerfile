@@ -7,20 +7,23 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Switch to root user to avoid issues with whiteboxtools
-USER root
-
 # Create a directory for WhiteboxTools
 RUN mkdir -p /opt/whitebox_tools
 
 # Download and install WhiteboxTools in /opt/whitebox_tools
 WORKDIR /opt/whitebox_tools
+
 RUN wget https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -O whitebox_tools.zip && \
     unzip whitebox_tools.zip && rm whitebox_tools.zip
 
-# Set environment variables to include WhiteboxTools in PATH
-ENV PATH="/opt/whitebox_tools/WhiteboxTools_linux_amd64:$PATH"
+WORKDIR /
 
+# Set environment variables to include WhiteboxTools in PATH
+ENV PATH="/opt/whitebox_tools/WhiteboxTools_linux_amd64/WBT:$PATH"
+    
+# Set environment variable for WhiteboxTools directory
+ENV WBT_PATH="/opt/whitebox_tools/WhiteboxTools_linux_amd64/WBT"
+    
 # Copy your application files
 COPY --chmod=755 run.sh /tapis/run.sh
 COPY main.py /code/main.py
@@ -33,9 +36,6 @@ RUN conda create --name pygeoflood-env python=3.11 --yes && \
 
 # Set environment variables for Conda to avoid using 'source activate'
 ENV PATH="/opt/conda/envs/pygeoflood-env/bin:$PATH"
-
-# Set the WBT_PATH environment variable to point to the WhiteboxTools directory
-ENV WBT_PATH="/opt/whitebox_tools/WhiteboxTools_linux_amd64"
 
 # Set the entry point for the container
 ENTRYPOINT ["/tapis/run.sh"]

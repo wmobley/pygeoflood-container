@@ -1,11 +1,6 @@
 from pathlib import Path
 from pygeoflood import PyGeoFlood
 
-import os
-
-# Set the WBT_DIR environment variable
-os.environ['WBT_DIR'] = '/tmp/whitebox'
-
 def pygeoflood_full_workflow(dem, flowlines, catchments, streamflow):
 
     pgf = PyGeoFlood(dem_path = dem)

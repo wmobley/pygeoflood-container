@@ -31,19 +31,19 @@
       "appArgs": [
         {
           "name": "DEM",
-          "description": "The name of the DEM being used (example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded)",
+          "description": "The name of the DEM being used. Example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded. Just input the part of the file name preceding the .tif extension (e.g. 'Original' for 'Original.tif'). This file should be located in your catchment directory",
           "inputMode": "REQUIRED",
           "arg": "Original"
         },
         {
           "name": "Points",
-          "description": "The name of the DEM being used (example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded)",
+          "description": "If you have points of interest where you would like to know flood depths you can add them here. Just input the part of the file name preceding the .shp extension (e.g. 'Critical_Infrastructure' for 'Critical_Infrastructure.shp')These points should be a shapefile located in the Points directory in the catchment directory",
           "inputMode": "REQUIRED",
           "arg": "None"
         },
         {
           "name": "Flood Map List",
-          "description": "The name of the DEM being used (example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded)",
+          "description": "If you would not like to save all the output rasters you can specify the specific events you would like to save rasters for. Event names should correspond to streamflow names. Only include the name of the Streamflow files preceding the .csv extension. Also, if you are including a FIM list, put the event names inside quotation marks. For, example if you want the output rasters for streamflow events in 'Harvey.csv' and 'Event1.csv' files, your FIM List would be 'Harvey Event1'. If you don't want to save any FIM rasters use None as input",
           "inputMode": "REQUIRED",
           "arg": "All"
         }
@@ -78,7 +78,7 @@
     "fileInputs": [
       {
         "name": "Catchment Folder",
-        "description": "Contains the billing data to be processed",
+        "description": "Catchment folder with Flowlines.shp, Catchment.shp, DEM your_DEM_filename.tif, Streamflow directory, Points directory, Stage directory, and Inundation directory",
         "inputMode": "REQUIRED",
         "autoMountLocal": true,
         "sourceUrl": null,
@@ -95,9 +95,9 @@
   },
   "tags": ["portalName: ALL"],
   "notes": {
-    "label": "Python script using conda",
-    "helpUrl": "https://github.com/In-For-Disaster-Analytics/cookbook-conda-template",
-    "helpText": "Read CSV file stored on TACC storage and run a Python script that reads it, calculates the average of the values in the first column, and writes the result to a file.",
+    "label": "Pygeoflood",
+    "helpUrl": "https://github.com/tobiashi26/pygeoflood-container.git",
+    "helpText": "Finds inundation depth rasters or inundation depth at points of interest based on streamflow, DEM, flowlines, and catchment data.",
     "hideNodeCountAndCoresPerNode": true,
     "isInteractive": false,
     "icon": "jupyter",

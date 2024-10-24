@@ -1,8 +1,8 @@
 from pathlib import Path
 from pygeoflood import PyGeoFlood
 
-from app.pygeoflood_full_workflow import dem_processing
-from app.pygeoflood_full_workflow import inundation_mapping
+from app.dem_processing import dem_processing
+from app.inundation_mapping import inundation_mapping
 
 def parse_args():
     import argparse
@@ -14,6 +14,8 @@ def parse_args():
     parser.add_argument("catchments", help="The file to write the average of each row to")
     parser.add_argument("flowlines", help="The file to write the average of each row to")
     parser.add_argument("streamflow_path", help="")
+    parser.add_argument("points", help="")
+    parser.add_argument("fim_list", help="")
     return parser.parse_args()
 
 args = parse_args()
@@ -21,7 +23,9 @@ dem = args.DEM
 flowlines = args.flowlines
 catchments = args.catchments
 streamflow_dir = args.streamflow_path
+points = args.points
+fim_list = args.fim_list
 
-src, hand, segment_catchments = dem_processing(dem, flowlines, catchments)
+src, hand, segment_catchments = dem_processing(dem, flowlines, catchments)    
 
-inundation_mapping(dem, src, hand, segment_catchments, streamflow_dir)
+inundation_mapping(dem, src, hand, segment_catchments, streamflow_dir, points, fim_list)

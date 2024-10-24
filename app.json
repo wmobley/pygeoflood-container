@@ -1,6 +1,6 @@
 {
   "id": "Pygeoflood-Container",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",
   "enabled": true,
@@ -34,6 +34,18 @@
           "description": "The name of the DEM being used (example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded)",
           "inputMode": "REQUIRED",
           "arg": "Original"
+        },
+        {
+          "name": "Points",
+          "description": "The name of the DEM being used (example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded)",
+          "inputMode": "REQUIRED",
+          "arg": "None"
+        },
+        {
+          "name": "Flood Map List",
+          "description": "The name of the DEM being used (example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded)",
+          "inputMode": "REQUIRED",
+          "arg": "All"
         }
       ],
       "schedulerOptions": [

@@ -26,7 +26,7 @@ def inundation_mapping(dem, src, hand, segment_catchments, streamflow_dir, point
 
         pgf.inundate(custom_hand=hand, custom_flood_stage = stage_path, custom_segment_catchments_raster = segment_catchments, custom_path = inundation_path)
 
-        if points != 'None':
+        if points != "Catchment/Points/None.shp":
 
             point_depth_extraction(inundation_path.with_suffix(".tif"), points, event)
         

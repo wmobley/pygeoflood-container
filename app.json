@@ -1,6 +1,6 @@
 {
   "id": "Pygeoflood-Container",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",
   "enabled": true,
@@ -43,7 +43,7 @@
         },
         {
           "name": "Flood Map List",
-          "description": "If you would not like to save all the output rasters you can specify the specific events you would like to save rasters for. Event names should correspond to streamflow names. Only include the name of the Streamflow files preceding the .csv extension. Also, if you are including a FIM list, put the event names inside quotation marks. For, example if you want the output rasters for streamflow events in 'Harvey.csv' and 'Event1.csv' files, your FIM List would be 'Harvey Event1'. If you don't want to save any FIM rasters use None as input",
+          "description": "If you would not like to save all the output rasters you can specify the events for which you would like to save rasters. Event names should correspond to streamflow names. Only include the name of the Streamflow files preceding the .csv extension. Also, if you are including a FIM list, put the event names inside quotation marks. For, example if you want the output rasters for streamflow events in 'Harvey.csv' and 'Event1.csv' files, your FIM List would be 'Harvey Event1'. If you don't want to save any FIM rasters use None as input",
           "inputMode": "REQUIRED",
           "arg": "All"
         }

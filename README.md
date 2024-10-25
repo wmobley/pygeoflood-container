@@ -1,143 +1,90 @@
-This template is the first in a [series of templates](#next-templates) that will guide you through the process of creating a cookbook and running it on TACC systems. From simple ones that run a command to more complex ones that run a Python script using conda or a Jupyter Notebook.
+This cookbook developed with the [Cookbook UI](https://in-for-disaster-analytics.github.io/cookbooks-ui/#/apps) template can be used to run [pygeoflood](https://github.com/passaH2O/pygeoflood) as a container on TACC systems.
 
-## Requirements
+## Setting Up Catchment Directory
 
-- A GitHub account
-- TACC account. If you don't have one, you can request one [here](https://accounts.tacc.utexas.edu/register).
-- To access TACC systems, you should have an [allocation](https://tacc.utexas.edu/use-tacc/allocations/).
-  - You can see your allocations [here](https://ptdatax.tacc.utexas.edu/workbench/allocations/approved).
-  - If you don't have an allocation, you can request one [here](https://portal.tacc.utexas.edu/allocation-request).
+A catchment directory must first be developed. The catchment directory contains information about the catchment shape/area, flowlines, streamflow, elevation, and points of interest (see Woodville in examples for an example catchment directory). The catchment directory can be given any name including the area or catchment of interest. The catchment directory should be stored on TACC. For example, the catchment directory could be stored in Data Files > My Data (Work) > ls6.
 
-## Template Overview
+![alt text](images/datafiles.png)
 
-This template creates a simple Python script that will be used to demonstrate how to run a cookbook on a TACC cluster and obtain the output using a UI. The cookbook will use a CSV file stored on TACC storage and run a Python script that reads it, calculates the average of the values in the first column, and writes the result to a file.
+### Catchment File
 
-In this case, the file is small for demonstration purposes. However, you can use the same process to analyze large files.
+The catchment directory should contain a catchment shapefile named Catchment.shp with the outline of the catchment or area of interest (see Catchment.shp in the Woodville example). The file must be named Catchment.shp for the app to work.
 
-### How does it work?
+### Flowlines File
 
-1. [`app.json`](app.json) file: contains the definition of the Tapis application, including the application's name, description, Docker image, input files, and advanced options.
-2. [`Dockerfile`](Dockerfile): a Docker image is built from the [`Dockerfile`](./Dockerfile). The Docker image defines the runtime environment for the application and the files that will be used by the application.
-3. [`run.sh`](run.sh): contains all the commands that will be executed on the TACC cluster.
+The catchment directory should contain a flowlines shapefile named Flowlines.shp with the flowlines for the streams/rivers in the catchment (see Flowlines.shp in the Woodville example). The flowlines shapefile should contain the same fields as flowline data from [NFIE](https://www.arcgis.com/home/webmap/viewer.html?webmap=9766a82973b34f18b43dafa20c5ef535&extent=-140.4631,21.8744,-48.5295,57.4761). The file must be named Flowlines.shp for the app to work.
 
-### Upload files to TACC storage
+### DEM Files
 
-One of the goals of the template is to demonstrate how to use the TACC storage system to store the input and output files. So, you should upload the CSV file to the TACC storage system.
+The catchment directory should contain at least one DEM file with a .tif extension (see Original.tif in the Woodville example). You can name these DEMs however you would like as long as they have a .tif extension. If you are interested in analyzing how flood mitigation measures modelled using DEM modifications may impact inundation levels, you can add multiple .tif files. For example, if you would like to analyze the impact of a planned levee, you could add a .tif file named Levee.tif in addition to an Original.tif file representing current conditions.
 
-1. Go to the [TACC Portal](https://portal.tacc.utexas.edu).
-2. Click on the "Data Files" tab.
-3. Click on the "Add +" button.
-   ![alt text](images/image.png)
-4. Click on the "Upload" button.
-   ![alt text](images/image-1.png)
-5. Select the file you want to upload and click `Upload Selected`.
+### Streamflow Directory and Files
 
-### Modify the Dockerfile
+The catchment directory must contain a directory named Streamflow (see the Streamflow directory in the Woodville example). The Streamflow directory should contain .csv files with streamflow data for events of interest (e.g. Event1, Event2, Harvey). The .csv streamflow files should contain two columns, COMID and streamflow, which are the stream reach ID following the nomenclature used in NFIE flowlines data and the stream discharge in (m3/s). The streamflow files can be named according to the events of interest with the .csv extension (see Event1.csv, Event2.csv, Harvey.csv in in the Streamflow directory in the Woodville example). Try to use event names of less than 6 characters in length. Otherwise, event names will be abbreviated when adding fields if depths are extracted at points of interest due to field name length limits in shapefiles.
 
-The `Dockerfile` is used to create a Docker image that will be used to run the Python script. In this case, the Docker image is created using the `microconda` base image, which is a minimal image that contains conda.
+### Points Directory and File
 
-For example, the Dockerfile below installs `curl` using `apt-get`. This is useful if you need to install packages that are not available in conda.
+Your catchment directory should contain a directory named Points (see the Points directory in the Woodville example). If you would like to extract depths at specific points of interest, you can add a shapefile containing these points in the Points directory inside the catchment directory (see the Critical_Infrastructure.shp file in the Points directory in the Woodville example).
 
-```Dockerfile
-RUN apt-get update && apt-get install -y \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-```
+Make sure the shapefile contains vector data with geometry type, "Point", as opposed to "MultiPoint". Otherwise the app will fail. For example, if creating your Points shapefile in QGIS, select "Points" here.
 
-### Define conda dependencies using `environment.yaml`
+![alt text](images/points.png)
 
-The `environment.yaml` file is used to define the conda environment that will be used to run the Python script. In this case, the `environment.yaml` file contains the dependencies needed to run the Python script.
+### Stage Directory
 
-```yaml
-name: base
-channels:
-  - conda-forge
-dependencies:
-  - python=3.9.1
-  - pandas=1.2.1
-```
+Your catchment directory should contain a directory named Stage (see the Stage directory in the Woodville example). This directory should be empty and is only used for temporary storage of flood stage files used to generate inundation maps.
 
-### Job run script
+### Inundation Directory
 
-The `run.sh` file is used to run the Python script. It activates the conda environment and runs the Python script.
+Your catchment directory should contain a directory named Inundation (see the Inundation directory in the Woodville example). This directory should be empty and is used for storing outputs.
 
-```bash
-#!/bin/bash
-set -xe
+## Inputs
 
-cd ${_tapisExecSystemInputDir}
-python /code/main.py billing.csv ${_tapisExecSystemOutputDir}/output.txt
-```
+The app requires only one input, Catchment Folder. You can select the path to your catchment directory stored on TACC here. The catchment directory should contain the files/directories described in the step before.
 
-The `run.sh` has two variables that are used to define the input and output directories. These variables are `_tapisExecSystemInputDir` and `_tapisExecSystemOutputDir` which are automatically set by the Tapis system.
+![alt text](images/catchment_folder_input.png)
+![alt text](images/selecting_catchment_folder_input.png)
 
-- \_tapisExecSystemInputDir: The directory where the input files are staged
-- \_tapisExecSystemOutputDir: The directory where the application writes the output files
+## Parameters
 
-## Create your cookbook
+The app takes three parameters as appArgs, DEM, Points, and Flood Map List.
 
-You can use this repository as a template to create your cookbook. Follow the steps below to create your cookbook.
+### DEM
 
-### Create a new repository
+You must select a DEM for the pygeoflood runs. Add the name of the DEM without the .tif extension. For example, if you would like to analyze flooding in your original, unmodified DEM saved as Original.tif in the catchment directory your input would be Original. If you would like to analyze flooding after the addition of a levee modelled as a modification to your DEM and saved as Levee.tif in your catchment directory, your input would be Levee.  
 
-1. Click on the "Use this template" button to create a new repository
-2. Fill in the form with the information for your new repository
+![alt text](images/DEM_apparg.png)
 
-### Build the Docker image
+### Points
 
-1. Clone the repository
-2. Build the Docker image using the command below
+There are two possible options for this parameter:
+1. None (Default) - If you don't want to extract depths at specific points leave this parameter as None.
+2. Name of points file - If you would like to extract depths at critical points, you can add the name of your points shapefile stored in the Points directory. For example, if you would like to know depths at the points stored in the Critical_Infrastructure.shp shapefile, your parameter would be Critical_Infrastructure.
 
-```bash
-docker build -t cookbook-python .
-```
+![alt text](images/points.png)
 
-3. Push the Docker image to a container registry
+### Flood Map List
 
-```bash
-docker tag cookbook-python <your-registry>/cookbook-python
-docker push <your-registry>/cookbook-python
-```
+There are three possible options for this parameter:
+1. All (Default) - If you would like to save/export rasters with inundation depth for each event modelled, use All as your input for this parameter.
+2. List of events of interest in quotation marks - If you are running pygeoflood for a large amount of events and only care about inundation depth at specific points, you may not want to save the inundation depth rasters for every event. Instead you might only want to save a few inundation depth rasters for events of interest or as examples when presenting your results. In this case, your input for this parameter would be a list of the specific event names (corresponding to the filenames of the streamflow files for the respective events). For example, if you only wanted to save inundation depth rasters for the events corresponding to the streamflow files, Event1.csv and Harvey.csv, your input for this parameter would be 'Event1 Harvey'. Be sure to put the list in quotation marks. Otherwise the app will not work.
+3. None - If you are running pygeoflood for a large amount of events and only care about inundation depth at specific points, you may not want to save any inundation depth rasters. In this case, you input for this parameter should be None.
 
-### Modify the `app.json` file
+![alt text](images/FML_apparg.png)
 
-Each app has a unique `id` and `description`. So, you should change these fields to match your app's name and description.
+## Outputs
 
-1. Download the `app.json` file
-2. Change the values `id` and `description` fields with the name and description as you wish.
+![alt text](images/output.png)
+![alt text](images/output_files.png)
 
-### Create a New Application on the Cookbook UI
+### Inundation Directory
 
-1. Go to [Cookbook UI](https://in-for-disaster-analytics.github.io/cookbooks-ui/#/apps)
-2. Click on the "Create Application" button
-3. Fill in the form with the information from your `app.json` file
-4. Click "Create Application"
-5. A new application will be created, and you will be redirected to the application's page
+After the app runs, it will copy a directory named Inundation into the Tapis output directory. this directory contains the inundation depth rasters (as .tif files) you requested when defining the Flood Map List parameter.
 
-### Run your Cookbook
+### Points directory 
 
-1. Go to the application's page on the Cookbook UI, if you are not already there
-2. Click on the "Run" button on the right side of the page. This will open the Portal UI
-3. Click on the "Select" button to choose the input file
-   ![alt text](images/image-2.png)
-4. Click "Run"
+The app will also copy a Points directory into the Tapis output directory. This directory will contain a points file with the same name as the points shapefile you added in the Points directory in your catchment directory. For example, if you added a Critical_Infrastructure.shp file in the Points directory a file named Critical_Infrastructure.shp will also appear here. If you input the name of your points file in the Points parameter, the file will contain fields for each event with the inundation depth at each point. The field names will correspond to the event names for the given streamflow files. For example, for a event with the streamflow file, Event1.csv, the field, "Event 1 (m)," will contain the depths for this event.
 
-### Check the output
+## Summary of App Function
 
-1. After the job finishes, you can check the output by clicking on the "Output location" link on the job's page
-   ![Show a job finished ](images/job-finished.png)
-2. You will be redirected to the output location, where you can see the output files generated by the job
-   ![alt text](images/image-4.png)
-3. Click on a file to see its content. In this case, the file is named `output.txt`
-   ![alt text](images/image-3.png)
-
-## Next templates
-
-- [Running a command](https://github.com/In-For-Disaster-Analytics/Cookbook-Docker-Template)
-- [Running a Python script using conda](https://github.com/In-For-Disaster-Analytics/Cookbook-Conda-Template)
-- [Running a Jupyter Notebook](https://github.com/In-For-Disaster-Analytics/Cookbook-Jupyter-Template)
-
-## Authors
-
-- William Mobley - wmobley@tacc.utexas.edu
-- Maximiliano Osorio - maxiosorio@gmail.com
+The app takes a catchment directory containing information about a catchment (i.e. catchment extent and flowlines), streamflow data for events, and a DEM. The app models inundation extent for each .csv file in the Streamflow directory for the chosen DEM using pygeoflood. Inundation depths can be saved for the entire study area using the flood maps or at specific points of interest using a points shapefile. 

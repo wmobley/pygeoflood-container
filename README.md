@@ -1,4 +1,4 @@
-This cookbook developed with the [Cookbook UI](https://in-for-disaster-analytics.github.io/cookbooks-ui/#/apps) template can be used to run [pygeoflood](https://github.com/passaH2O/pygeoflood) as a container on TACC systems.
+This cookbook developed with the [Cookbook UI](https://github.com/In-For-Disaster-Analytics/Cookbook-Conda-Template) template can be used to run [pygeoflood](https://github.com/passaH2O/pygeoflood) as a container on TACC systems.
 
 ## Setting Up Catchment Directory
 

@@ -5,7 +5,7 @@ def merge_point_data(dem, point_depths, events, points):
 
     catchment_dir = os.path.dirname(dem) + '/'
 
-    points_path =  catchment_dir + points + '.shp'
+    points_path =  catchment_dir + "Points/" + points + '.shp'
 
     critical_points = gpd.read_file(points_path)
 

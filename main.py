@@ -3,6 +3,10 @@ from pygeoflood import PyGeoFlood
 
 from app.dem_processing import dem_processing
 from app.inundation_mapping import inundation_mapping
+from app.merge_point_data import merge_point_data
+
+from multiprocessing import Pool 
+import multiprocessing
 
 def parse_args():
     import argparse
@@ -18,14 +22,40 @@ def parse_args():
     parser.add_argument("fim_list", help="")
     return parser.parse_args()
 
-args = parse_args()
-dem = args.DEM
-flowlines = args.flowlines
-catchments = args.catchments
-streamflow_dir = args.streamflow_path
-points = args.points
-fim_list = args.fim_list
+if __name__ == "__main__":
 
-src, hand, segment_catchments = dem_processing(dem, flowlines, catchments)    
+    try:
+        multiprocessing.set_start_method('spawn')
+    except RuntimeError:
+        print("Start method already set")
+        pass  # Context has already been set; do nothing
 
-inundation_mapping(dem, src, hand, segment_catchments, streamflow_dir, points, fim_list)
+    args = parse_args()
+    dem = args.DEM
+    flowlines = args.flowlines
+    catchments = args.catchments
+    streamflow_dir = args.streamflow_path
+    points = args.points
+    fim_list = args.fim_list
+
+    src, hand, segment_catchments = dem_processing(dem, flowlines, catchments) 
+
+    streamflow_files = list(Path(streamflow_dir).iterdir())
+
+    # Prepare arguments for each streamflow_path file
+    args = [(dem, src, hand, segment_catchments, streamflow_path, points, fim_list) for streamflow_path in streamflow_files]
+        
+    # Run inundation mapping in parallel using Pool
+    with Pool() as pool:
+        
+        point_results = pool.starmap(inundation_mapping, args)
+
+    print(point_results)
+    
+    events, point_depths = zip(*point_results)
+    
+    events_list = list(events)
+    point_depths_list = list(point_depths)
+    
+    if points != "None":
+        merge_point_data(point_depths_list, events_list, points, catchment_dir)

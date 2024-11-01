@@ -1,7 +1,7 @@
 import rasterio as rio
 import geopandas as gpd
 
-def point_depth_extraction(inundation_path, points_path, event):
+def point_depth_extraction(inundation_path, points_path):
 
     fim_raster = rio.open(inundation_path)
 
@@ -20,6 +20,4 @@ def point_depth_extraction(inundation_path, points_path, event):
         value = fim_raster.read(1)[row, col]  # Read the value at that location
         point_values.append(value)
     
-    points_reprojected[event + '(m)'] = point_values
-
-    points_reprojected.to_file(points_path)
+    return point_values

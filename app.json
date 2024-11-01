@@ -1,6 +1,6 @@
 {
   "id": "Pygeoflood-Container",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",
   "enabled": true,

@@ -58,4 +58,4 @@ if __name__ == "__main__":
     point_depths_list = list(point_depths)
     
     if points != "None":
-        merge_point_data(point_depths_list, events_list, points, catchment_dir)
+        merge_point_data(dem, point_depths_list, events_list, points)

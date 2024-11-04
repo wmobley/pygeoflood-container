@@ -49,8 +49,6 @@ if __name__ == "__main__":
     with Pool() as pool:
         
         point_results = pool.starmap(inundation_mapping, args)
-
-    print(point_results)
     
     events, point_depths = zip(*point_results)
     

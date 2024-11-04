@@ -28,10 +28,10 @@ def inundation_mapping(dem, src, hand, segment_catchments, streamflow_path, poin
     )
     
     # If points are provided, extract point depths
-    if points != "None":
-
+    if points == "None":
+        point_depths = None
+    else:
         points_path = catchment_dir + 'Points/' + points + '.shp'
-
         point_depths = point_depth_extraction(inundation_path.with_suffix(".tif"), points_path)
     
     # Manage output files based on fim_list

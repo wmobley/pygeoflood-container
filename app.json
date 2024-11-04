@@ -1,6 +1,6 @@
 {
   "id": "Pygeoflood-Container",
-  "version": "0.0.47",
+  "version": "0.0.48",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",
   "enabled": true,
@@ -34,6 +34,12 @@
           "description": "The name of the DEM being used. Example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded. Just input the part of the file name preceding the .tif extension (e.g. 'Original' for 'Original.tif'). This file should be located in your catchment directory",
           "inputMode": "REQUIRED",
           "arg": "Original"
+        },
+        {
+          "name": "Streamflow Directory",
+          "description": "The name of the directory containing .csv files with streamflow data. Example names could be 'Hurricanes', 'SSP2-4.5', or 'SSP5-8.5' if you are interested in looking at flood events for hurricanes or for climate change scenarios. This directory should be inside the catchment directory",
+          "inputMode": "REQUIRED",
+          "arg": "Streamflow"
         },
         {
           "name": "Points",

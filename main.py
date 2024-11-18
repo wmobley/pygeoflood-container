@@ -46,7 +46,7 @@ if __name__ == "__main__":
     args = [(dem, src, hand, segment_catchments, streamflow_path, points, fim_list) for streamflow_path in streamflow_files]
         
     # Run inundation mapping in parallel using Pool
-    with Pool(processes = 32) as pool:
+    with Pool(processes = 16) as pool:
         
         point_results = pool.starmap(inundation_mapping, args)
     

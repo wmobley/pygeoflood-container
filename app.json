@@ -1,6 +1,6 @@
 {
   "id": "Pygeoflood-Container",
-  "version": "0.0.50",
+  "version": "0.0.51",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",
   "enabled": true,
@@ -108,6 +108,6 @@
     "isInteractive": false,
     "icon": "jupyter",
     "category": "Data Processing",
-    "queueFilter": ["development", "normal"]
+    "queueFilter": ["development", "normal", "vm-small"]
   }
 }

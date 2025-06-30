@@ -26,7 +26,7 @@ ENV WBT_PATH="/opt/whitebox_tools/WhiteboxTools_linux_amd64/WBT"
     
 # Copy your application files
 COPY --chmod=755 run.sh /tapis/run.sh
-COPY main.py /code/main.py
+COPY main.py main.py
 
 # Create the conda environment with the necessary dependencies and install pygeoflood
 RUN conda create --name pygeoflood-env python=3.11 --yes && \

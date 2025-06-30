@@ -22,13 +22,13 @@ def main():
     parser.add_argument(
         '--flowline-path',
         type=str,
-        default="data/Flowlines.shp",
+        default="data/Flowlines.geojson",
         help='Path to flowlines shapefile (default: data/Flowlines.shp)'
     )
     parser.add_argument(
         '--catchment-path',
         type=str,
-        default="data/Catchment.shp",
+        default="data/Catchment.geojson",
         help='Path to catchment shapefile (default: data/Catchment.shp)'
     )
     

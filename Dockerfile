@@ -1,6 +1,6 @@
 # Use a base image with Conda installed
-FROM continuumio/miniconda3
-
+FROM mambaorg/micromamba:1.5.8
+USER root
 # Update the package list and install build-essential
 RUN apt-get update && \
     apt-get install -y build-essential wget unzip && \
@@ -16,17 +16,20 @@ WORKDIR /opt/whitebox_tools
 RUN wget https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -O whitebox_tools.zip && \
     unzip whitebox_tools.zip && rm whitebox_tools.zip
 
-WORKDIR /
+# WORKDIR /
 
 # Set environment variables to include WhiteboxTools in PATH
 ENV PATH="/opt/whitebox_tools/WhiteboxTools_linux_amd64/WBT:$PATH"
     
 # Set environment variable for WhiteboxTools directory
 ENV WBT_PATH="/opt/whitebox_tools/WhiteboxTools_linux_amd64/WBT"
-    
+USER mambauser
+
 # Copy your application files
 COPY --chmod=755 run.sh /tapis/run.sh
-COPY --chmod=755 main.py /tapis/main.py
+
+
+COPY --chown=$MAMBA_USER:$MAMBA_USER main.py /code/main.py
 
 # Create the conda environment with the necessary dependencies and install pygeoflood
 RUN conda create --name pygeoflood-env python=3.11 --yes && \

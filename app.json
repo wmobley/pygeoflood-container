@@ -83,12 +83,28 @@
     },
     "fileInputs": [
       {
-        "name": "Catchment Folder",
-        "description": "Catchment folder with Flowlines.shp, Catchment.shp, DEM your_DEM_filename.tif, Streamflow directory, Points directory, Stage directory, and Inundation directory",
+        "name": "Digital Elevation Model",
+        "description": " Digital Elevation model for the flood model. ",
         "inputMode": "REQUIRED",
         "autoMountLocal": true,
         "sourceUrl": null,
-        "targetPath": "Catchment"
+        "targetPath": "data/dem.tif"
+      },
+      {
+        "name": "Flow Line Shapefile",
+        "description": "Flow Line shapefile for the flood mdoel. ",
+        "inputMode": "REQUIRED",
+        "autoMountLocal": true,
+        "sourceUrl": null,
+        "targetPath": "data/Flowlines.shp"
+      },
+      {
+        "name": "Catchment Shapefile",
+        "description": "Catchment for the flood mdoel",
+        "inputMode": "REQUIRED",
+        "autoMountLocal": true,
+        "sourceUrl": null,
+        "targetPath": "data/Catchment.shp"
       }
     ],
     "fileInputArrays": [],

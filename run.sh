@@ -6,5 +6,5 @@ ls
 pwd
 python /code/main.py --flow-volume $Streamflow
 
-cp -r Catchment/data $_tapisExecSystemOutputDir
+cp -r data $_tapisExecSystemOutputDir
 

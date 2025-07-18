@@ -1,13 +1,13 @@
 {
-  "id": "Pygeoflood-Container",
-  "version": "0.0.53",
+  "id": "Pygeoflood-Container-wm",
+  "version": "0.0.55sha-548065c",
   "description": "Runs pygeoflood in a container.",
   "owner": "${apiUserId}",
   "enabled": true,
   "runtime": "SINGULARITY",
   "runtimeVersion": null,
   "runtimeOptions": ["SINGULARITY_RUN"],
-  "containerImage": "docker://ghcr.io/tobiashi26/pygeoflood-container:main",
+  "containerImage": "docker://ghcr.io/wmobley/pygeoflood-container:sha-548065c",
   "jobType": "BATCH",
   "maxJobs": -1,
   "maxJobsPerUser": -1,
@@ -20,7 +20,7 @@
     "execSystemExecDir": "${JobWorkingDir}",
     "execSystemInputDir": "${JobWorkingDir}",
     "execSystemOutputDir": "${JobWorkingDir}/output",
-    "execSystemLogicalQueue": "development",
+    "execSystemLogicalQueue": "vm-small",
     "archiveSystemId": "cloud.data",
     "archiveSystemDir": "HOST_EVAL($HOME)/tapis-jobs-archive/${JobCreateDate}/${JobName}-${JobUUID}",
     "archiveOnAppError": true,
@@ -30,28 +30,10 @@
     "parameterSet": {
       "appArgs": [
         {
-          "name": "DEM",
-          "description": "The name of the DEM being used. Example names could be Original if unmodified DEM, Dike1 if dike is addded to DEM, Reservoir_expansion if reservoir is expanded. Just input the part of the file name preceding the .tif extension (e.g. 'Original' for 'Original.tif'). This file should be located in your catchment directory",
-          "inputMode": "REQUIRED",
-          "arg": "Original"
-        },
-        {
-          "name": "Streamflow Directory",
-          "description": "The name of the directory containing .csv files with streamflow data. Example names could be 'Hurricanes', 'SSP2-4.5', or 'SSP5-8.5' if you are interested in looking at flood events for hurricanes or for climate change scenarios. This directory should be inside the catchment directory",
-          "inputMode": "REQUIRED",
-          "arg": "Streamflow"
-        },
-        {
-          "name": "Points",
-          "description": "If you have points of interest where you would like to know flood depths you can add them here. Just input the part of the file name preceding the .shp extension (e.g. 'Critical_Infrastructure' for 'Critical_Infrastructure.shp')These points should be a shapefile located in the Points directory in the catchment directory",
-          "inputMode": "REQUIRED",
-          "arg": "None"
-        },
-        {
-          "name": "Flood Map List",
-          "description": "If you would not like to save all the output rasters you can specify the events for which you would like to save rasters. Event names should correspond to streamflow names. Only include the name of the Streamflow files preceding the .csv extension. Also, if you are including a FIM list, put the event names inside quotation marks. For, example if you want the output rasters for streamflow events in 'Harvey.csv' and 'Event1.csv' files, your FIM List would be 'Harvey Event1'. If you don't want to save any FIM rasters use None as input",
-          "inputMode": "REQUIRED",
-          "arg": "All"
+          "name": "Stream Flow",
+          "description": "The Stream flow value in Cubic Meters",
+          "inputMode": "REQUIRED"
+          
         }
       ],
       "schedulerOptions": [
@@ -91,20 +73,20 @@
         "targetPath": "data/dem.tif"
       },
       {
-        "name": "Flow Line Shapefile",
+        "name": "Flow Line geojson",
         "description": "Flow Line shapefile for the flood mdoel. ",
         "inputMode": "REQUIRED",
         "autoMountLocal": true,
         "sourceUrl": null,
-        "targetPath": "data/Flowlines.shp"
+        "targetPath": "data/Flowlines.geojson"
       },
       {
-        "name": "Catchment Shapefile",
+        "name": "Catchment geojson",
         "description": "Catchment for the flood mdoel",
         "inputMode": "REQUIRED",
         "autoMountLocal": true,
         "sourceUrl": null,
-        "targetPath": "data/Catchment.shp"
+        "targetPath": "data/Catchment.geojson"
       }
     ],
     "fileInputArrays": [],

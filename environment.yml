@@ -1,0 +1,17 @@
+channels:
+  - conda-forge
+dependencies:
+  - geopandas
+  - rasterio
+  - gdal
+  - pip:
+      - annotated-types==0.7.0
+      - dask-geopandas==0.4.3
+      - morecantile==6.2.0
+      - pydantic==2.11.7
+      - pydantic-core==2.33.2
+      - rio-cogeo==5.4.2
+      - rioxarray==0.19.0
+      - typing-extensions==4.14.1
+      - typing-inspection==0.4.1
+      - xarray==2025.4.0

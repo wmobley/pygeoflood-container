@@ -4,7 +4,8 @@ FROM continuumio/miniconda3
 # Update the package list and install build-essential
 RUN apt-get update && \
     apt-get install -y build-essential wget unzip && \
-    apt-get clean && \
+    apt-get clean &&\
+    apt-get install -y proj-data &&\
     rm -rf /var/lib/apt/lists/*
 
 # Create a directory for WhiteboxTools

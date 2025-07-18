@@ -1,6 +1,9 @@
+name: pygeoflood-env
 channels:
   - conda-forge
+  - defaults
 dependencies:
+  - python=3.11
   - geopandas
   - rasterio
   - gdal

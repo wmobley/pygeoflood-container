@@ -1,6 +1,9 @@
 #!/bin/bash
 set -xe
 
+source activate base
+conda activate pygeoflood-env
+
 Streamflow=$1
 ls
 pwd
